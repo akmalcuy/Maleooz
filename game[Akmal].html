@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menebak angka yang ada di pikiranku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f7f7f7;
+        }
+        .game-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 80%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .win-message {
+            color: green;
+        }
+        .lose-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>menebak angka!</h1>
+        <p>aku sedang memikirkan angka coba tebak angkanya dari 1-100</p>
+        <input type="number" id="user-guess" placeholder="jawablah" />
+        <button onclick="checkGuess()">jawab</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        // Generate a random number between 1 and 100
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('user-guess').value);
+            const message = document.getElementById('message');
+            attempts++;
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                message.textContent = "mohon jawab sesuai angka 1-100.";
+                message.classList.remove('win-message', 'lose-message');
+                return;
+            }
+
+            if (userGuess === secretNumber) {
+                message.textContent = `selamat jawaban anda benar ${attempts} .`;
+                message.classList.add('win-message');
+                message.classList.remove('lose-message');
+            } else if (userGuess < secretNumber) {
+                message.textContent = "sangat kecil coba lagi.";
+                message.classList.remove('win-message', 'lose-message');
+            } else {
+                message.textContent = "sangat tinggi coba lagi.";
+                message.classList.remove('win-message', 'lose-message');
+            }
+        }
+    </script>
+
+</body>
+</html>
